@@ -2,13 +2,13 @@
   <a href="https://www.ceealar.org"><img src="ceealar_wheel/static/ceealar-logo.png" width="90" alt="CEEALAR"></a>
 </p>
 <h1 align="center">noodles.</h1>
-<p align="center"><em>Food for thought. Occasional nonsense.</em><br>CEEALAR's lightning-talk roulette: 200 topics · 70% knowledge · 30% chaos.</p>
+<p align="center"><em>Food for thought. Unexpected rabbit holes.</em><br>CEEALAR's lightning-talk roulette: 200 topics · 70% knowledge · 30% wildcard.</p>
 
 ```bash
 noodles
 ```
 
-Open a **GitHub Codespace**, let setup finish, then run the command. Port **8000** opens in your browser. Spin, take the floor, and make the room a little wiser. Or defend the moral superiority of a spoon.
+Open a **GitHub Codespace**, let setup finish, then run the command. Port **8000** opens in your browser. Spin, take the floor, and make the room a little wiser. Or explore octopus camouflage.
 
 **Space** to spin · no repeats by default · 1/3/5/10-minute fullscreen timer · broad, searchable topics · fullscreen spins & confetti reveals.
 

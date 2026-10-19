@@ -17,7 +17,7 @@ class AppTests(unittest.TestCase):
         self.assertEqual(len({t['id'] for t in topics}), 200)
         self.assertEqual(len({t['title'] for t in topics}), 200)
         self.assertEqual(sum(t['kind'] == 'knowledge' for t in topics), 140)
-        self.assertEqual(sum(t['kind'] == 'chaos' for t in topics), 60)
+        self.assertEqual(sum(t['kind'] == 'wildcard' for t in topics), 60)
         self.assertTrue(all(t['title'] and t['category'] for t in topics))
 
     def test_served_assets(self):

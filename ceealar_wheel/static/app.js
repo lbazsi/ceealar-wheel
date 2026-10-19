@@ -1,7 +1,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const TAU = Math.PI * 2;
-const COLORS = {knowledge:['#087f86','#268f91','#4a9d99','#1b777c'],chaos:['#dc775c','#e69a73','#cf674e']};
+const COLORS = {knowledge:['#087f86','#268f91','#4a9d99','#1b777c'],wildcard:['#dc775c','#e69a73','#cf674e']};
 let topics=[], pool=[], angle=0, spinning=false, activePool=[], history=[];
 let timerEnd=null, remaining=180000;
 let presentationMode=null, ownsFullscreen=false, revealTimeout=null, confettiTimeout=null;
@@ -116,11 +116,11 @@ const end=start+TAU*7+((target-start%TAU+TAU)%TAU);
 $('mode').disabled=true;$('no-repeat').disabled=true;$('reset-session').disabled=true;$('spin').disabled=true;$('spin').textContent='Stirring the pot…';$('badge').className='badge';$('badge').textContent='A MOMENT OF SUSPENSE';$('topic').textContent='Let the universe pick.';$('hint').textContent='All remaining topics have an equal chance.';document.body.classList.add('spinning');
 const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?120:5200;
 await new Promise(resolve=>{const begin=performance.now();function frame(now){const p=Math.min(1,(now-begin)/duration);angle=start+(end-start)*(1-Math.pow(1-p,5));draw();if(p<1)requestAnimationFrame(frame);else resolve();}requestAnimationFrame(frame);});
-angle=end%TAU;chosenTopic=winner;celebrate(winner);history.push(winner.id);save();$('badge').className=`badge ${winner.kind}`;$('badge').textContent=winner.kind==='chaos'?'30% CHAOS · 100% COMMITMENT':winner.category.toUpperCase();$('topic').textContent=winner.title;$('hint').textContent=winner.kind==='chaos'?'Take it far too seriously. That is the assignment.':'Offer an explanation, an argument, or a useful example.';document.body.classList.remove('spinning');
+angle=end%TAU;chosenTopic=winner;celebrate(winner);history.push(winner.id);save();$('badge').className=`badge ${winner.kind}`;$('badge').textContent=winner.kind==='wildcard'?'WILDCARD · AN UNEXPECTED RABBIT HOLE':winner.category.toUpperCase();$('topic').textContent=winner.title;$('hint').textContent=winner.kind==='wildcard'?'Share what you know, or explore what makes it interesting.':'Offer an explanation, an argument, or a useful example.';document.body.classList.remove('spinning');
 // Hold the exact landed-on wheel until the next spin or pool change.
 spinning=false;$('mode').disabled=false;$('no-repeat').disabled=false;$('reset-session').disabled=false;
 pool=available();$('spin').disabled=!pool.length;$('spin').innerHTML=pool.length?'One more spin <span>↗</span>':'All served. Start a new evening ↺';$('remaining').textContent=`${pool.length} topics left in the pot`;$('round').textContent=`ROUND ${String(history.length).padStart(2,'0')}`;renderHistory();}
-function showTopics(){const query=$('search').value.trim().toLowerCase(),filtered=topics.filter(t=>`${t.title} ${t.category} ${t.kind}`.toLowerCase().includes(query));$('search-count').textContent=`${filtered.length} topics · ${filtered.filter(t=>t.kind==='knowledge').length} knowledge · ${filtered.filter(t=>t.kind==='chaos').length} chaos`;$('topic-list').replaceChildren();for(const t of filtered){const row=document.createElement('div');row.className='topic-row';row.textContent=`${String(t.id).padStart(3,'0')} / ${t.title}`;const tag=document.createElement('small');tag.textContent=`${t.category}${history.includes(t.id)?' · already served':''}`;row.append(tag);$('topic-list').append(row);}}
+function showTopics(){const query=$('search').value.trim().toLowerCase(),filtered=topics.filter(t=>`${t.title} ${t.category} ${t.kind}`.toLowerCase().includes(query));$('search-count').textContent=`${filtered.length} topics · ${filtered.filter(t=>t.kind==='knowledge').length} knowledge · ${filtered.filter(t=>t.kind==='wildcard').length} wildcard`;$('topic-list').replaceChildren();for(const t of filtered){const row=document.createElement('div');row.className='topic-row';row.textContent=`${String(t.id).padStart(3,'0')} / ${t.title}`;const tag=document.createElement('small');tag.textContent=`${t.category}${history.includes(t.id)?' · already served':''}`;row.append(tag);$('topic-list').append(row);}}
 $('spin').addEventListener('click',spin);$('hub').addEventListener('click',spin);
 for(const id of ['mode','no-repeat'])$(id).addEventListener('change',refresh);
 $('timer-start').addEventListener('click',()=>{if(timerEnd!==null){stopTimer();$('presentation-pause').textContent='Resume';}else startTalk();paintTimer();});
