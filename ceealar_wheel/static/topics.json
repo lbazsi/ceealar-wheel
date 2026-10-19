@@ -1,121 +1,121 @@
 [
   {
     "id": 1,
-    "title": "Effective altruism",
+    "title": "Integral theory",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 2,
-    "title": "Global priorities research",
+    "title": "Cluelessness",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 3,
-    "title": "Charity evaluation",
+    "title": "Moral parliamentarianism",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 4,
-    "title": "Cost-effectiveness analysis",
+    "title": "Person-affecting views",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 5,
-    "title": "Global health",
+    "title": "Infinite ethics",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 6,
-    "title": "Global poverty",
+    "title": "Fanaticism in decision theory",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 7,
-    "title": "Cash transfers",
+    "title": "Suffering-focused ethics",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 8,
-    "title": "Cause prioritisation",
+    "title": "Acausal trade",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 9,
-    "title": "High-impact careers",
+    "title": "Evidential cooperation in large worlds",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 10,
-    "title": "Earning to give",
+    "title": "The long reflection",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 11,
-    "title": "Longtermism",
+    "title": "Differential technological development",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 12,
-    "title": "Existential risk",
+    "title": "The unilateralist's curse",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 13,
-    "title": "Moral uncertainty",
+    "title": "Moral trade",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 14,
-    "title": "Philanthropy",
+    "title": "Patient philanthropy",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 15,
-    "title": "Advocacy and social change",
+    "title": "Option value in philanthropy",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 16,
-    "title": "Community building",
+    "title": "Welfare biology",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 17,
-    "title": "Impact measurement",
+    "title": "Anthropic reasoning",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 18,
-    "title": "The limits of effective altruism",
+    "title": "The hinge of history",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 19,
-    "title": "Give now or give later?",
+    "title": "Crucial considerations",
     "category": "EA & impact",
     "kind": "knowledge"
   },
   {
     "id": 20,
-    "title": "What does it mean to do good?",
+    "title": "Epistemic modesty",
     "category": "EA & impact",
     "kind": "knowledge"
   },
