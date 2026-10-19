@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ceealar-wheel"
+version = "1.0.0"
+description = "Lightning talks, good questions, and questionable noodles."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+noodles = "ceealar_wheel:main"
+
+[tool.setuptools.package-data]
+ceealar_wheel = ["static/*"]
