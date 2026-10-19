@@ -10,7 +10,7 @@ noodles
 
 Open a **GitHub Codespace**, let setup finish, then run the command. Port **8000** opens in your browser. Spin, take the floor, and make the room a little wiser. Or explore octopus camouflage.
 
-**Space** to spin · no repeats by default · 1/3/5/10-minute fullscreen timer · broad, searchable topics · fullscreen spins & confetti reveals.
+**Space** to spin · no repeats by default · 1/3/5/10/15-minute fullscreen timer · broad, searchable topics · fullscreen spins & confetti reveals.
 
 <details><summary>Running elsewhere / existing Codespace</summary>
 
