@@ -4,12 +4,11 @@ const TAU = Math.PI * 2;
 const COLORS = {knowledge:['#087f86','#268f91','#4a9d99','#1b777c'],wildcard:['#dc775c','#e69a73','#cf674e']};
 let topics=[], pool=[], angle=0, spinning=false, activePool=[], history=[];
 let timerEnd=null, remaining=180000;
-let presentationMode=null, ownsFullscreen=false, revealTimeout=null, confettiTimeout=null;
+let presentationMode=null, ownsFullscreen=false, confettiTimeout=null;
 let previousFocus=null, chosenTopic=null;
 
 function openPresentation(mode) {
     if ($('presentation').hidden) previousFocus=document.activeElement;
-    clearTimeout(revealTimeout);
     presentationMode=mode;
     $('presentation').hidden=false;
     document.body.classList.add('presenting');
@@ -35,7 +34,6 @@ function releaseFullscreen() {
     }
 }
 function closePresentation() {
-    clearTimeout(revealTimeout);
     clearTimeout(confettiTimeout);
     $('confetti').replaceChildren();
     $('presentation').hidden=true;
@@ -68,7 +66,6 @@ function celebrate(winner) {
         }
     }
     confettiTimeout=setTimeout(()=>$('confetti').replaceChildren(),4200);
-    revealTimeout=setTimeout(()=>{if(presentationMode==='winner')closePresentation();},4500);
 }
 function startTalk() {
     if (spinning) return;
