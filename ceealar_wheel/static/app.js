@@ -8,6 +8,8 @@ let presentationMode=null, ownsFullscreen=false, confettiTimeout=null;
 let previousFocus=null, chosenTopic=null;
 
 function openPresentation(mode) {
+    clearTimeout(confettiTimeout);
+    $('confetti').replaceChildren();
     if ($('presentation').hidden) previousFocus=document.activeElement;
     presentationMode=mode;
     $('presentation').hidden=false;
@@ -84,7 +86,7 @@ function save(){try{localStorage.setItem(storageKey,JSON.stringify(history));}ca
 // Rejection sampling avoids modulo bias. Every remaining topic has equal odds.
 function randomIndex(n){const a=new Uint32Array(1),limit=Math.floor(4294967296/n)*n;do{crypto.getRandomValues(a);}while(a[0]>=limit);return a[0]%n;}
 function available(){return topics.filter(t=>($('mode').value==='all'||t.kind===$('mode').value)&&(!$('no-repeat').checked||!history.includes(t.id)));}
-function refresh(){pool=available();$('spin').disabled=spinning||!pool.length;$('spin').innerHTML=pool.length?'Spin the wheel <span>↗</span>':'All served. Start a new evening ↺';$('remaining').textContent=`${pool.length} topics left in the pot`;$('round').textContent=`ROUND ${String(history.length+1).padStart(2,'0')}`;draw();renderHistory();}
+function refresh(){pool=available();$('winner-respin').disabled=spinning||!pool.length;$('spin').disabled=spinning||!pool.length;$('spin').innerHTML=pool.length?'Spin the wheel <span>↗</span>':'All served. Start a new evening ↺';$('remaining').textContent=`${pool.length} topics left in the pot`;$('round').textContent=`ROUND ${String(history.length+1).padStart(2,'0')}`;draw();renderHistory();}
 function draw(){for(const id of ['wheel','presentation-wheel'])drawWheel($(id));}
 function drawWheel(canvas){const ctx=canvas.getContext('2d'),list=spinning?activePool:pool,n=list.length;ctx.clearRect(0,0,1200,1200);ctx.save();ctx.translate(600,600);ctx.rotate(angle-Math.PI/2);if(!n){ctx.beginPath();ctx.arc(0,0,590,0,TAU);ctx.fillStyle='#bdcdbc';ctx.fill();}for(let i=0;i<n;i++){const start=i*TAU/n,end=(i+1)*TAU/n;ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,590,start,end);ctx.closePath();const palette=COLORS[list[i].kind];ctx.fillStyle=palette[i%palette.length];ctx.fill();ctx.strokeStyle='#f6f3e955';ctx.lineWidth=1;ctx.stroke();if(n<=60||i%Math.ceil(n/40)===0){ctx.save();ctx.rotate((start+end)/2);ctx.fillStyle='#fff9e9';ctx.font=`bold ${n>60?17:20}px Arial`;ctx.textAlign='right';ctx.fillText(String(list[i].id).padStart(3,'0'),555,6);ctx.restore();}}ctx.restore();}
 function renderHistory(){const list=$('history');list.replaceChildren();$('empty-history').hidden=history.length>0;history.slice(-5).reverse().forEach((id,i)=>{const t=topics.find(t=>t.id===id);if(!t)return;const li=document.createElement('li'),num=document.createElement('span');num.textContent=String(history.length-i).padStart(2,'0');li.append(num,document.createTextNode(t.title));list.append(li);});}
@@ -116,7 +118,7 @@ await new Promise(resolve=>{const begin=performance.now();function frame(now){co
 angle=end%TAU;chosenTopic=winner;celebrate(winner);history.push(winner.id);save();$('badge').className=`badge ${winner.kind}`;$('badge').textContent=winner.kind==='wildcard'?'WILDCARD · AN UNEXPECTED RABBIT HOLE':winner.category.toUpperCase();$('topic').textContent=winner.title;$('hint').textContent=winner.kind==='wildcard'?'Share what you know, or explore what makes it interesting.':'Offer an explanation, an argument, or a useful example.';document.body.classList.remove('spinning');
 // Hold the exact landed-on wheel until the next spin or pool change.
 spinning=false;$('mode').disabled=false;$('no-repeat').disabled=false;$('reset-session').disabled=false;
-pool=available();$('spin').disabled=!pool.length;$('spin').innerHTML=pool.length?'One more spin <span>↗</span>':'All served. Start a new evening ↺';$('remaining').textContent=`${pool.length} topics left in the pot`;$('round').textContent=`ROUND ${String(history.length).padStart(2,'0')}`;renderHistory();}
+pool=available();$('winner-respin').disabled=spinning||!pool.length;$('spin').disabled=!pool.length;$('spin').innerHTML=pool.length?'One more spin <span>↗</span>':'All served. Start a new evening ↺';$('remaining').textContent=`${pool.length} topics left in the pot`;$('round').textContent=`ROUND ${String(history.length).padStart(2,'0')}`;renderHistory();}
 function showTopics(){const query=$('search').value.trim().toLowerCase(),filtered=topics.filter(t=>`${t.title} ${t.category} ${t.kind}`.toLowerCase().includes(query));$('search-count').textContent=`${filtered.length} topics · ${filtered.filter(t=>t.kind==='knowledge').length} knowledge · ${filtered.filter(t=>t.kind==='wildcard').length} wildcard`;$('topic-list').replaceChildren();for(const t of filtered){const row=document.createElement('div');row.className='topic-row';row.textContent=`${String(t.id).padStart(3,'0')} / ${t.title}`;const tag=document.createElement('small');tag.textContent=`${t.category}${history.includes(t.id)?' · already served':''}`;row.append(tag);$('topic-list').append(row);}}
 $('spin').addEventListener('click',spin);$('hub').addEventListener('click',spin);
 for(const id of ['mode','no-repeat'])$(id).addEventListener('change',refresh);
@@ -130,6 +132,7 @@ $('presentation-reset').addEventListener('click',resetTimer);
 $('presentation-close').addEventListener('click',closePresentation);
 $('winner-dismiss').addEventListener('click',closePresentation);
 $('winner-start').addEventListener('click',startTalk);
+$('winner-respin').addEventListener('click',spin);
 document.addEventListener('fullscreenchange',()=>{
     if(ownsFullscreen&&!document.fullscreenElement){ownsFullscreen=false;closePresentation();}
 });
